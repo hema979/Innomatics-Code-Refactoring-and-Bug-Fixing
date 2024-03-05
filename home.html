@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+             
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .note-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .note-actions button {
+            margin-left: 10px;
+            background-color: #dc3545;
+        }
+
+        .note-actions button:hover {
+            background-color: #ba2d3a;
+        }
+
+        .note-actions button i {
+            margin-right: 5px;
+        }
+
+        .delete-all-btn {
+            margin-top: 20px;
+            background-color: #dc3545;
+        }
+
+        .delete-all-btn:hover {
+            background-color: #ba2d3a;
+        }
+
+        .delete-all-btn i {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Note Making App</h1>
+        <form action="/" method="POST">
+            <input type="text" name="note" placeholder="Enter a note">
+            <button type="submit">Add Note</button>
+        </form>
+
+        <ul>
+            {% for index, note in notes %}
+            <li>
+                {{ note }}
+                <div class="note-actions">
+                    <form action="/edit/{{ index }}" method="GET">
+                        <button type="submit"><i class="fas fa-edit"></i>Edit</button>
+                    </form>
+                    <form action="/delete/{{ index }}" method="POST">
+                        <button type="submit"><i class="fas fa-trash-alt"></i>Delete</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <form action="/delete_all" method="POST">
+            <button type="submit" class="delete-all-btn"><i class="fas fa-trash"></i>Delete All</button>
+        </form>
+    </div>
+</body>
+</html>
